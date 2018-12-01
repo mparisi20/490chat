@@ -6,16 +6,23 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+var nameList = [];
+
 io.on('connection', function(socket){
 	
 	
-  socket.on('create	user', function(msg){
-	  
+  socket.on('new user', function(name){
+	  nameList.push(name);
+	  msg = "<i>A new user named " + name + " has joined.</i>";
       io.emit('chat message', msg); // give user a name to be print before each message
   });
   
   socket.on('chat message', function(msg){
     io.emit('chat message', msg); // io.emit means broadcasting to every client
+  });
+  
+  socket.on('disconnect', function() {
+	io.emit('chat message', "<i>A user has disconnected</i>");
   });
   
 });

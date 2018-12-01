@@ -46,7 +46,8 @@
     $(function () { // this is basically client.js
       var socket = io();
 	  var name = prompt("Please enter your name", "New User");
-	  socket.emit('chat message',"<i>A new user named " + name + " has joined.</i>");
+	  socket.emit("new user", name);
+	  //socket.emit('chat message',"<i>A new user named " + name + " has joined.</i>");
 	  $('#Name').submit(function(){
 		let old = name;
         name = $('#nm').val();
