@@ -47,11 +47,9 @@
       var socket = io();
 	  var name = prompt("Please enter your name", "New User");
 	  socket.emit("new user", name);
-	  //socket.emit('chat message',"<i>A new user named " + name + " has joined.</i>");
 	  $('#Name').submit(function(){
 		let old = name;
         name = $('#nm').val();
-        $('#nm').val('');
 		socket.emit('chat message',"<i>" + old + " has changed their name to " + name + "</i>");
         return false;
       });
@@ -60,9 +58,14 @@
         $('#m').val('');
         return false;
       });
+	  $(window).bind('beforeunload', function(){
+		socket.emit('chat message',"<i>" + name + " has left the chat.</i>");
+		return 'Are you sure you want to leave?';
+	  });
       socket.on('chat message', function(msg){
         $('#messages').append($('<li>').html(msg));
       });
+	  
     });
     </script>
   </body>

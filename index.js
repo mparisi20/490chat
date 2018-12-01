@@ -21,10 +21,6 @@ io.on('connection', function(socket){
     io.emit('chat message', msg); // io.emit means broadcasting to every client
   });
   
-  socket.on('disconnect', function() {
-	io.emit('chat message', "<i>A user has disconnected</i>");
-  });
-  
 });
 
 http.listen(3000, function(){
