@@ -8,9 +8,11 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 	
-  /* socket.on('create	user', function(msg){
-      io.emit(); // give user a name to be print before each message
-  }); */
+	
+  socket.on('create	user', function(msg){
+	  
+      io.emit('chat message', msg); // give user a name to be print before each message
+  });
   
   socket.on('chat message', function(msg){
     io.emit('chat message', msg); // io.emit means broadcasting to every client
