@@ -45,6 +45,7 @@
     <script>
     $(function () { // this is basically client.js
       var socket = io();
+	  var currentTime = new Date();
 	  var name = prompt("Please enter your name", "New User");
 	  socket.emit("new user", name);
 	  $('#Name').submit(function(){
@@ -54,7 +55,9 @@
         return false;
       });
       $('#Send').submit(function(){
-        socket.emit('chat message', "<div id=name>" + name + "</div>" + $('#m').val());
+		currentTime = new Date();
+        socket.emit('chat message', "<div id=name>" + name + "</div>" + $('#m').val() + " sent at: " + currentTime.toLocaleTimeString() );
+		delete currentTime;
         $('#m').val('');
         return false;
       });
